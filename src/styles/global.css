@@ -1,0 +1,152 @@
+/* ==============================
+   CSS CUSTOM PROPERTIES
+   ============================== */
+:root {
+  --color-bg: #F9F7F3;
+  --color-surface: #FFFFFF;
+  --color-border: #E8E4DC;
+
+  --color-green: #2A5C45;
+  --color-green-dark: #1E4433;
+  --color-green-light: #EAF2EE;
+  --color-green-mid: #3D7A5C;
+
+  --color-orange: #E8733A;
+  --color-orange-dark: #C85E28;
+  --color-orange-light: #FDF0E8;
+
+  --color-text: #1C1C1E;
+  --color-text-secondary: #4A4A4A;
+  --color-text-muted: #8A8A8A;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.10), 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  --transition: 200ms ease;
+  --transition-slow: 350ms ease;
+
+  --font-family: 'Heebo', -apple-system, 'Segoe UI', Arial, sans-serif;
+
+  --max-width: 1100px;
+  --content-padding: 1.5rem;
+}
+
+/* ==============================
+   RESET & BASE
+   ============================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.65;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* ==============================
+   UTILITY CLASSES
+   ============================== */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--content-padding);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==============================
+   SCROLLBAR
+   ============================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ==============================
+   FOCUS STYLES
+   ============================== */
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==============================
+   SELECTION
+   ============================== */
+::selection {
+  background: var(--color-green-light);
+  color: var(--color-green-dark);
+}

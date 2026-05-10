@@ -1,0 +1,105 @@
+.footer {
+  margin-top: auto;
+  background: var(--color-green-dark);
+  padding: 2.75rem 0 1.75rem;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+/* ==============================
+   BRAND
+   ============================== */
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  transition: opacity var(--transition);
+}
+
+.logo:hover {
+  opacity: 0.85;
+}
+
+.logoImg {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: center;
+  /* Slightly brighten against dark footer */
+  filter: brightness(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.025em;
+}
+
+.tagline {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  max-width: 320px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ==============================
+   LINKS
+   ============================== */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.link {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  transition: color var(--transition);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #fff;
+}
+
+.dot {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 1rem;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ==============================
+   COPYRIGHT
+   ============================== */
+.copy {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.25rem;
+  width: 100%;
+  text-align: center;
+}

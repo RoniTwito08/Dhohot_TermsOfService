@@ -1,0 +1,184 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(249, 247, 243, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.header.scrolled {
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 1px 0 var(--color-border), var(--shadow-sm);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 1.5rem;
+}
+
+/* ==============================
+   LOGO
+   ============================== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logoImg {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  object-fit: cover;
+  /* Clip the white outer padding of the app icon PNG */
+  object-position: center;
+  box-shadow: 0 1px 4px rgba(42, 92, 69, 0.18);
+  transition: transform var(--transition), box-shadow var(--transition);
+  flex-shrink: 0;
+}
+
+.logo:hover .logoImg {
+  transform: scale(1.07);
+  box-shadow: 0 3px 10px rgba(42, 92, 69, 0.22);
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-green);
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+/* ==============================
+   NAV
+   ============================== */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.navLink {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: color var(--transition), background var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: var(--color-green);
+  background: var(--color-green-light);
+}
+
+.navLink.active {
+  color: var(--color-green);
+  background: var(--color-green-light);
+  font-weight: 600;
+}
+
+/* ==============================
+   HAMBURGER
+   ============================== */
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  padding: 7px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: background var(--transition);
+}
+
+.menuToggle:hover {
+  background: var(--color-green-light);
+}
+
+.menuToggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+  transform-origin: center;
+}
+
+.menuToggle.menuOpen span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.menuToggle.menuOpen span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.menuToggle.menuOpen span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ==============================
+   MOBILE OVERLAY
+   ============================== */
+.overlay {
+  display: none;
+}
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+@media (max-width: 680px) {
+  .menuToggle {
+    display: flex;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 98;
+  }
+
+  .nav {
+    position: fixed;
+    top: 68px;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    background: var(--color-surface);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 99;
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition-slow), opacity var(--transition-slow);
+  }
+
+  .nav.navOpen {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .navLink {
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+  }
+}
