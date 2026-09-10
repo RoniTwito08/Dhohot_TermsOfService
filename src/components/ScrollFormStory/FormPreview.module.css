@@ -1,0 +1,163 @@
+.card {
+  width: 100%;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  padding: 1.125rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  font-size: 0.9375rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.brandDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-orange);
+}
+
+.brandName {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-green-dark);
+  letter-spacing: 0.01em;
+}
+
+.statusChip {
+  position: relative;
+  height: 1.4rem;
+  min-width: 4.5rem;
+}
+
+.statusChip span {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  transition: opacity 150ms linear;
+}
+
+.statusDraft {
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  opacity: clamp(0, calc((0.03 - var(--progress, 0)) * 50), 1);
+}
+
+.statusEditing {
+  background: var(--color-orange-light);
+  color: var(--color-orange-dark);
+  opacity: clamp(
+    0,
+    min(calc(var(--progress, 0) * 18), calc((0.87 - var(--progress, 0)) * 18)),
+    1
+  );
+}
+
+.statusSent {
+  background: var(--color-green-light);
+  color: var(--color-green-dark);
+  opacity: var(--p-fly, 0);
+}
+
+.title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 0.1rem 0;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.photo {
+  position: relative;
+  align-self: flex-start;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: clamp(0, calc(var(--p-photo, 0) * 3), 1);
+  transform: scale(calc(0.75 + clamp(0, calc(var(--p-photo, 0) * 3), 1) * 0.25));
+}
+
+.photoIcon {
+  font-size: 1.125rem;
+}
+
+.photoCheck {
+  position: absolute;
+  bottom: -4px;
+  inset-inline-end: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-green);
+  color: #fff;
+  font-size: 0.6rem;
+  line-height: 16px;
+  text-align: center;
+  opacity: clamp(0, calc((var(--p-photo, 0) - 0.5) * 4), 1);
+}
+
+.completeBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.1rem;
+  padding: 0.6rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-green-light);
+  color: var(--color-green-dark);
+  font-size: 0.875rem;
+  font-weight: 700;
+  opacity: clamp(0, calc(var(--p-complete, 0) * 4), 1);
+  transform: translateY(calc((1 - clamp(0, calc(var(--p-complete, 0) * 4), 1)) * 6px))
+    scale(calc(0.96 + clamp(0, calc(var(--p-complete, 0) * 4), 1) * 0.04));
+}
+
+.completeIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-green);
+  color: #fff;
+  font-size: 0.7rem;
+  line-height: 18px;
+  text-align: center;
+}

@@ -1,0 +1,45 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  opacity: clamp(0, calc(var(--p-field, 0) * 4), 1);
+  transform: translateY(calc((1 - clamp(0, calc(var(--p-field, 0) * 4), 1)) * 6px));
+}
+
+.box {
+  position: relative;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--color-border);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: var(--color-green);
+  opacity: var(--p-field, 0);
+  transform: scale(calc(0.6 + var(--p-field, 0) * 0.4));
+}
+
+.tick {
+  position: absolute;
+  inset: 2px;
+  width: 14px;
+  height: 14px;
+  stroke: #fff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 14;
+  stroke-dashoffset: calc(14 * (1 - clamp(0, calc((var(--p-field, 0) - 0.3) * 1.7), 1)));
+  opacity: clamp(0, calc((var(--p-field, 0) - 0.25) * 4), 1);
+}
+
+.text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}

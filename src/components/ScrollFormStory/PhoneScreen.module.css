@@ -1,0 +1,129 @@
+.stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 700px;
+  pointer-events: none;
+}
+
+/*
+ * The phone's actual screen: a fixed, clipped window. Its own transform is
+ * the WhatsApp "detach and fly" effect for the whole visible report — see
+ * .track below for the independent internal scroll.
+ */
+.viewport {
+  --shrink: calc(1 - var(--p-fly, 0) * 0.6);
+  --collapse: calc(1 - var(--p-compress, 0));
+
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform:
+    translate(calc(var(--p-fly, 0) * 34%), calc(var(--p-fly, 0) * 30%))
+    rotateY(calc(var(--p-fly, 0) * -14deg))
+    rotate(calc(var(--p-fly, 0) * 8deg))
+    scale(calc(var(--shrink) * var(--collapse)));
+  opacity: var(--collapse);
+}
+
+/*
+ * The report itself: full size (never scaled down to fit), taller than
+ * the screen, translated upward as the page scrolls — `--scroll-distance`
+ * (the report's real overflow, measured in PhoneScreen.tsx) times
+ * `--p-reveal` (0 → 1 across the fill stages, see timeline.ts) — the same
+ * way scrolling a real app does. Frozen at its lowest point once the
+ * report is fully revealed, right before the WhatsApp collapse begins.
+ */
+.track {
+  width: 100%;
+  transform: translateY(calc(var(--scroll-distance, 0px) * -1 * var(--p-reveal, 0)));
+}
+
+.pdfBadge {
+  position: absolute;
+  top: 4%;
+  inset-inline-end: 8%;
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--color-orange-dark);
+  background: var(--color-orange-light);
+  border-radius: 5px;
+  padding: 0.1rem 0.35rem;
+  opacity: clamp(0, calc(var(--p-fly, 0) * 3), 1);
+}
+
+.whatsappLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 0.35rem;
+  opacity: var(--p-bubble, 0);
+  transform: scale(calc(0.94 + var(--p-bubble, 0) * 0.06)) translateY(calc((1 - var(--p-bubble, 0)) * 6px));
+}
+
+.targetWrap {
+  --pulse: calc(var(--p-compress, 0) * (1 - var(--p-compress, 0)) * 4);
+
+  position: absolute;
+  bottom: 4%;
+  inset-inline-end: 6%;
+  width: 15%;
+  min-width: 32px;
+  max-width: 44px;
+  aspect-ratio: 1;
+  opacity: calc(0.45 + var(--p-fly, 0) * 0.55);
+  transform: scale(calc(0.82 + var(--p-fly, 0) * 0.18 + var(--pulse) * 0.22));
+  z-index: 4;
+}
+
+.targetRippleGate {
+  position: absolute;
+  inset: 0;
+  opacity: clamp(0, calc((var(--p-compress, 0) - 0.1) * 3), 0.55);
+}
+
+.targetRipple {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  animation: ripple 2s ease-out infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.targetIcon {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #25d366;
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+  font-size: 0.9375rem;
+}
+
+@container (max-width: 200px) {
+  .pdfBadge {
+    font-size: 0.5625rem;
+    padding: 0.05rem 0.3rem;
+  }
+
+  .targetIcon {
+    font-size: 0.75rem;
+  }
+}

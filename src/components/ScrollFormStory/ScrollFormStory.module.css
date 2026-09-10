@@ -1,0 +1,67 @@
+/*
+ * Sticky-sidebar grid: one row, two columns. .phoneCol is stretched to
+ * `height: 100%` so its box spans the *row's* height — set by the tallest
+ * item, .sectionsCol, the whole page's worth of sections — giving its
+ * sticky child (which stays its own intrinsic size, see .phoneStage) the
+ * full row to travel through: it rides along from the top of the page
+ * down to the last section, then lets go. In RTL this reads right-to-left,
+ * so the phone (declared second) lands on the physical left and the
+ * sections (declared first) on the right, as requested.
+ */
+.shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 32%);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+  max-width: 1560px;
+  margin-inline: auto;
+}
+
+.sectionsCol {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.phoneCol {
+  height: 100%;
+  padding-inline-end: var(--content-padding);
+}
+
+/*
+ * Spans the full usable viewport (below the sticky header) so the phone —
+ * which stays intrinsically sized, see .phoneBox — can be centered in it
+ * vertically ("following the user through the page") instead of pinned to
+ * the top edge.
+ */
+.phoneStage {
+  position: sticky;
+  top: var(--header-h, 68px);
+  height: calc(100vh - var(--header-h, 68px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 2.5rem;
+}
+
+/*
+ * The device's actual size: fills the height it's given (the stage minus
+ * its padding — this IS "100vh - header - comfortable spacing") up to a
+ * sensible cap for very tall screens, and is never wider than its column.
+ * Width comes from PhoneFrame's aspect-ratio, so it can only ever get
+ * *narrower* than the height/column allow — never clipped.
+ */
+.phoneBox {
+  width: 100%;
+  height: 100%;
+  max-height: 660px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 30%);
+  }
+}

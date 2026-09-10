@@ -38,14 +38,6 @@
 .heroInner {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 3.5rem;
-}
-
-/* ——— Text ——— */
-.heroText {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -149,89 +141,6 @@
   border-color: var(--color-green);
   color: var(--color-green);
   transform: translateY(-1px);
-}
-
-/* ——— Visual / app icon column ——— */
-.heroVisual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.appIconWrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.appIcon {
-  width: 200px;
-  height: 200px;
-  border-radius: 44px;
-  object-fit: cover;
-  object-position: center;
-  box-shadow:
-    0 0 0 1px rgba(42, 92, 69, 0.08),
-    0 8px 32px rgba(42, 92, 69, 0.18),
-    0 32px 80px rgba(42, 92, 69, 0.10);
-  transition: transform var(--transition-slow), box-shadow var(--transition-slow);
-}
-
-.appIconWrap:hover .appIcon {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow:
-    0 0 0 1px rgba(42, 92, 69, 0.10),
-    0 16px 48px rgba(42, 92, 69, 0.22),
-    0 40px 100px rgba(42, 92, 69, 0.12);
-}
-
-/* Floating chips echoing the logo's checkmark / orange accent */
-.floatChip {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 100px;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-text);
-  box-shadow: var(--shadow-md);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.floatChip span {
-  font-size: 0.9rem;
-}
-
-.chipTop {
-  top: -14px;
-  right: -24px;
-  color: var(--color-green);
-  border-color: var(--color-green-light);
-  background: #fff;
-  animation: floatUp 3s ease-in-out infinite;
-}
-
-.chipBottom {
-  bottom: -14px;
-  left: -24px;
-  animation: floatDown 3.5s ease-in-out infinite;
-}
-
-@keyframes floatUp {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-5px); }
-}
-
-@keyframes floatDown {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(5px); }
 }
 
 /* ==============================
@@ -457,21 +366,6 @@
    RESPONSIVE
    ============================== */
 @media (max-width: 960px) {
-  .heroInner {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .heroVisual {
-    order: -1;
-  }
-
-  .appIcon {
-    width: 160px;
-    height: 160px;
-    border-radius: 36px;
-  }
-
   .featureGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -484,16 +378,6 @@
 @media (max-width: 580px) {
   .hero {
     padding: 3rem 0 3rem;
-  }
-
-  .appIcon {
-    width: 130px;
-    height: 130px;
-    border-radius: 28px;
-  }
-
-  .chipTop, .chipBottom {
-    display: none;
   }
 
   .featureGrid {

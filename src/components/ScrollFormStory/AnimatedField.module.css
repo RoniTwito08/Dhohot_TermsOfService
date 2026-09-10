@@ -1,0 +1,61 @@
+.row {
+  --reveal: clamp(0, calc(var(--p-field, 0) * 1.4), 1);
+  --check: clamp(0, calc((var(--p-field, 0) - 0.72) * 3.6), 1);
+  --focus: calc(var(--reveal) * (1 - var(--reveal)) * 4);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: rgba(42, 92, 69, calc(var(--focus) * 0.05));
+  box-shadow: inset 0 0 0 1.5px rgba(42, 92, 69, calc(var(--focus) * 0.35));
+  transition: background 120ms linear, box-shadow 120ms linear;
+  opacity: var(--reveal);
+  transform: translateY(calc((1 - var(--reveal)) * 8px));
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  opacity: clamp(0, calc(var(--p-field, 0) * 6), 1);
+}
+
+.valueWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.4em;
+}
+
+.value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  clip-path: inset(0 0 0 calc((1 - var(--reveal)) * 100%));
+}
+
+.value.multiline {
+  white-space: normal;
+  line-height: 1.6;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.check {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-green);
+  color: #fff;
+  font-size: 0.625rem;
+  line-height: 16px;
+  text-align: center;
+  opacity: var(--check);
+  transform: scale(calc(0.5 + var(--check) * 0.5));
+}
