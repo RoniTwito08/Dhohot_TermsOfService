@@ -36,7 +36,6 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
   stroke-dasharray: var(--sig-length, 240);
   stroke-dashoffset: calc(var(--sig-length, 240) * (1 - clamp(0, calc(var(--p-signature, 0) * 1.15), 1)));
 }

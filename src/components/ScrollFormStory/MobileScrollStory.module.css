@@ -1,0 +1,270 @@
+.wrap {
+  padding: 1.25rem var(--content-padding) 0.5rem;
+  overflow-x: clip;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.eyebrow {
+  font-size: var(--eyebrow-size);
+  font-weight: 700;
+  color: var(--color-orange-dark);
+  letter-spacing: 0.01em;
+}
+
+.headline {
+  font-size: clamp(1.75rem, 8vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+
+.headlineAccent {
+  color: var(--color-green);
+}
+
+.introBody {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 32ch;
+}
+
+/* The running seam the whole "living document" hangs off — what makes the
+   separate field groups below read as one continuous thread. */
+.thread {
+  position: relative;
+  padding-inline-start: 1.375rem;
+  border-inline-start: 2px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dot {
+  position: absolute;
+  inset-inline-start: -1.5625rem;
+  top: 0.5rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-green);
+  box-shadow: 0 0 0 4px var(--color-bg);
+}
+
+.stage {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 0.9rem 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.docHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-green-dark);
+}
+
+.docHeaderDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-orange);
+  flex-shrink: 0;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.fieldLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.fieldValue {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.fieldValueMultiline {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.fieldCheck {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--color-green);
+  color: #fff;
+  font-size: 0.5625rem;
+  line-height: 15px;
+  text-align: center;
+}
+
+/* Short benefit callouts, tucked beside the thread rather than boxed like the report stages */
+.note {
+  padding-inline-start: 0.25rem;
+}
+
+.note p {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  max-width: 30ch;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.checkMark {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: var(--color-green);
+  color: #fff;
+  font-size: 0.6875rem;
+  line-height: 18px;
+  text-align: center;
+}
+
+.signatureStage {
+  position: relative;
+  background: var(--color-green-light);
+  border: 1px solid rgba(42, 92, 69, 0.14);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.stageLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-green-dark);
+}
+
+.signaturePad {
+  position: relative;
+  height: 62px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.signatureSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.signaturePath {
+  fill: none;
+  stroke: var(--color-green-dark);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--sig-length, 240);
+  stroke-dashoffset: var(--sig-length, 240);
+  transition: stroke-dashoffset 1100ms var(--ease-out);
+}
+
+.signaturePathDrawn {
+  stroke-dashoffset: 0;
+}
+
+.signatureBaseline {
+  position: absolute;
+  inset-inline: 12px;
+  bottom: 12px;
+  height: 1px;
+  background: rgba(42, 92, 69, 0.25);
+}
+
+.signatureConfirm {
+  position: absolute;
+  top: 8px;
+  inset-inline-end: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-orange);
+  color: #fff;
+  font-size: 0.8125rem;
+  line-height: 22px;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 300ms var(--ease-out) 900ms, transform 300ms var(--ease-out) 900ms;
+}
+
+.signatureConfirmShown {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.completeStage {
+  position: relative;
+  background: linear-gradient(150deg, var(--color-green) 0%, var(--color-green-dark) 100%);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #fff;
+}
+
+.completeTag {
+  font-size: 0.625rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+}
+
+.completeText {
+  font-size: 1rem;
+  font-weight: 800;
+}

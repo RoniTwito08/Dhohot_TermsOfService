@@ -1,21 +1,11 @@
-import { useState, type FormEvent } from 'react'
+import WhatsAppIcon from '../../components/ScrollFormStory/WhatsAppIcon'
 import styles from './Contact.module.css'
 
-type FormState = 'idle' | 'submitted'
+const WHATSAPP_PHONE = '972549879533'
+const WHATSAPP_MESSAGE = 'היי רוני 👋 הגעתי דרך האתר של Dohot ואשמח לקבל פרטים נוספים.'
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
 
 export default function Contact() {
-  const [formState, setFormState] = useState<FormState>('idle')
-  const [values, setValues] = useState({ name: '', email: '', phone: '', message: '' })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setValues(v => ({ ...v, [e.target.name]: e.target.value }))
-  }
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    setFormState('submitted')
-  }
-
   return (
     <div className={styles.page}>
       <div className={`container ${styles.inner}`}>
@@ -71,103 +61,37 @@ export default function Contact() {
             </div>
           </aside>
 
-          {/* ——— FORM ——— */}
-          <section className={styles.formSection} aria-label="טופס יצירת קשר">
-            {formState === 'submitted' ? (
-              <div className={styles.success} role="status">
-                <span className={styles.successIcon} aria-hidden="true">✅</span>
-                <h2>הודעתך נשלחה בהצלחה!</h2>
-                <p>נחזור אליך בהקדם האפשרי. תודה על פנייתך.</p>
-                <button
-                  className={styles.resetBtn}
-                  onClick={() => { setFormState('idle'); setValues({ name: '', email: '', phone: '', message: '' }) }}
+          {/* ——— WHATSAPP CTA ——— */}
+          <section className={styles.whatsappSection} aria-label="יצירת קשר ב-WhatsApp">
+            <div className={styles.whatsappCard}>
+              <div className={styles.whatsappMain}>
+                <span className={styles.whatsappBadge}>
+                  <WhatsAppIcon className={styles.whatsappBadgeGlyph} />
+                </span>
+                <h2 className={styles.whatsappTitle}>רוצים לראות איך Dohot יכול לעבוד בשבילכם?</h2>
+                <p className={styles.whatsappSub}>דברו איתנו ישירות ב-WhatsApp ונשמח לעזור.</p>
+
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.whatsappCta}
                 >
-                  שלח פנייה נוספת
-                </button>
+                  <WhatsAppIcon className={styles.whatsappCtaGlyph} />
+                  דברו איתנו ב-WhatsApp
+                </a>
+
+                <p className={styles.whatsappNote}>נענים בדרך כלל תוך כמה שעות, בימי עבודה.</p>
               </div>
-            ) : (
-              <form className={styles.form} onSubmit={handleSubmit} noValidate>
-                <div className={styles.formRow}>
-                  <div className={styles.field}>
-                    <label htmlFor="name" className={styles.label}>שם מלא <span aria-hidden="true">*</span></label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      className={styles.input}
-                      placeholder="ישראל ישראלי"
-                      value={values.name}
-                      onChange={handleChange}
-                      required
-                      autoComplete="name"
-                    />
-                  </div>
-                  <div className={styles.field}>
-                    <label htmlFor="phone" className={styles.label}>טלפון</label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      className={styles.input}
-                      placeholder="050-000-0000"
-                      value={values.phone}
-                      onChange={handleChange}
-                      autoComplete="tel"
-                    />
-                  </div>
+
+              <div className={styles.whatsappPreview} aria-hidden="true">
+                <div className={styles.previewBubble}>
+                  <p>היי רוני 👋</p>
+                  <p>הגעתי דרך האתר של Dohot ואשמח לקבל פרטים נוספים.</p>
                 </div>
-
-                <div className={styles.field}>
-                  <label htmlFor="email" className={styles.label}>דואר אלקטרוני <span aria-hidden="true">*</span></label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    className={styles.input}
-                    placeholder="your@email.com"
-                    value={values.email}
-                    onChange={handleChange}
-                    required
-                    autoComplete="email"
-                    dir="ltr"
-                  />
-                </div>
-
-                <div className={styles.field}>
-                  <label htmlFor="subject" className={styles.label}>נושא הפנייה</label>
-                  <select id="subject" name="subject" className={styles.input} defaultValue="">
-                    <option value="" disabled>בחר נושא...</option>
-                    <option>בעיה טכנית</option>
-                    <option>שאלה על תכונה</option>
-                    <option>ביטול / שינוי מינוי</option>
-                    <option>שאלה על פרטיות</option>
-                    <option>אחר</option>
-                  </select>
-                </div>
-
-                <div className={styles.field}>
-                  <label htmlFor="message" className={styles.label}>הודעה <span aria-hidden="true">*</span></label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    className={`${styles.input} ${styles.textarea}`}
-                    placeholder="ספר לנו כיצד נוכל לעזור..."
-                    value={values.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                  />
-                </div>
-
-                <button type="submit" className={styles.submitBtn}>
-                  שלח הודעה
-                </button>
-
-                <p className={styles.formNote}>
-                  * שדות חובה. מידע שתמסור ישמש לצורך מענה לפנייתך בלבד.
-                </p>
-              </form>
-            )}
+                <span className={styles.previewMeta}>נשלח ל-Dohot · עכשיו</span>
+              </div>
+            </div>
           </section>
         </div>
       </div>

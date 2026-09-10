@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import logoUrl from '../../assets/Logo/Dohot_logo.png'
 import Reveal from '../../components/Reveal/Reveal'
-import MobilePhoneStory from '../../components/ScrollFormStory/MobilePhoneStory'
+import MobileScrollStory from '../../components/ScrollFormStory/MobileScrollStory'
 import ScrollFormStory from '../../components/ScrollFormStory/ScrollFormStory'
 import StoryStages from '../../components/ScrollFormStory/StoryStages'
 import WhatsAppIcon from '../../components/ScrollFormStory/WhatsAppIcon'
@@ -98,11 +98,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* =================== SCROLL STORY NARRATIVE (desktop) / COMPACT STORY (mobile) =================== */}
+        {/* =================== SCROLL STORY: sticky phone sidebar (desktop) / phone-free living document (mobile) =================== */}
         <div className="container">
           <StoryStages />
         </div>
-        <MobilePhoneStory />
+        <MobileScrollStory />
 
         {/* =================== DARK PREMIUM BAND =================== */}
         <section className={styles.dark}>
