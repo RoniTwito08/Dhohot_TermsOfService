@@ -1,0 +1,5 @@
+.stages {
+  display: flex;
+  flex-direction: column;
+  padding-block: 0.5rem 1rem;
+}

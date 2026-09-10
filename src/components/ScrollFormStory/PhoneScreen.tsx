@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef } from 'react'
 import FormPreview from './FormPreview'
+import { useFlyGeometry } from './useFlyGeometry'
 import WhatsAppChat from './WhatsAppChat'
+import WhatsAppIcon from './WhatsAppIcon'
 import styles from './PhoneScreen.module.css'
 
 /**
@@ -13,16 +15,20 @@ import styles from './PhoneScreen.module.css'
  * upward as the page scrolls (`--p-reveal`, driven by useScrollTimeline —
  * see timeline.ts), the same way scrolling a real app does. Once the
  * report has fully scrolled into view, `.viewport` itself (now showing the
- * finished report) detaches, shrinks with a little perspective tilt and
- * flies toward the WhatsApp badge (`--p-fly`), compresses into it right at
- * the badge (`--p-compress`, which also pulses the badge), and the screen
- * then resolves to the WhatsApp chat view (`--p-bubble`). The physical
- * phone frame itself never moves or resizes through any of this.
+ * finished report) detaches and collapses toward the WhatsApp badge — a
+ * "genie" effect (see .viewport in PhoneScreen.module.css): it shrinks and
+ * warps into a narrowing funnel while translating, converging exactly on
+ * the badge's real on-screen position (useFlyGeometry measures both boxes'
+ * actual `getBoundingClientRect()`, not a guessed percentage). Right as it
+ * lands, the badge pulses (`--p-compress`) and the screen resolves to the
+ * WhatsApp chat view (`--p-bubble`). The physical phone frame itself never
+ * moves or resizes through any of this.
  */
 export default function PhoneScreen() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const targetRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     const wrap = wrapRef.current
@@ -42,6 +48,12 @@ export default function PhoneScreen() {
     return () => observer.disconnect()
   }, [])
 
+  // Source = wrapRef, not viewportRef: the viewport is what this same
+  // animation transforms, so measuring it would feed back into itself.
+  // wrapRef never moves and exactly matches the viewport's own box at
+  // rest (both fill the phone's safe area), so it's a stable stand-in.
+  useFlyGeometry(wrapRef, wrapRef, targetRef)
+
   return (
     <div className={styles.stack} ref={wrapRef}>
       <div className={styles.viewport} ref={viewportRef}>
@@ -55,11 +67,13 @@ export default function PhoneScreen() {
         <WhatsAppChat />
       </div>
 
-      <div className={styles.targetWrap} aria-hidden="true">
+      <div className={styles.targetWrap} ref={targetRef} aria-hidden="true">
         <span className={styles.targetRippleGate}>
           <span className={styles.targetRipple} />
         </span>
-        <span className={styles.targetIcon}>📤</span>
+        <span className={styles.targetIcon}>
+          <WhatsAppIcon className={styles.targetGlyph} />
+        </span>
       </div>
     </div>
   )

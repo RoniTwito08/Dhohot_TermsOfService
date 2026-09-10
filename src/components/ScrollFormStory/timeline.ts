@@ -11,6 +11,19 @@ export interface TimelineWindow {
   end: number
 }
 
+/*
+ * These windows are fractions of a 0 → 1 story timeline. What that 0 → 1
+ * actually maps to differs per instance: MobilePhoneStory's phone is
+ * bounded to its own short section, so its raw scroll progress already
+ * lands neatly on 0 → 1. The desktop sidebar's phone instead shares one
+ * `--progress` with the *entire* page (see ScrollFormStory.tsx) — since
+ * the reading blocks (StoryStages.tsx) only occupy part of that page,
+ * useScrollTimeline's `scale` option compresses this same canonical 0 → 1
+ * timeline into the first stretch of the page for that instance, so the
+ * report finishes and the WhatsApp send completes before the
+ * dark/features/closing sections begin, and the phone then just sits in
+ * its finished "sent" state as a quiet companion for the rest of the page.
+ */
 export const TIMELINE: readonly TimelineWindow[] = [
   // Drives the phone's internal scroll (see PhoneScreen.tsx): the report
   // is full height and scrolls up inside the fixed screen viewport like a
@@ -76,23 +89,25 @@ export interface StoryBlock {
   end: number
   kicker: string
   heading: string
+  kpi: string
   body: string
 }
 
 /**
- * Short reading captions for the compact mobile story (see
- * MobilePhoneStory.tsx) — each paired with the matching stretch of the
- * timeline above so the caption below the phone always matches what it's
- * doing.
+ * The editorial narrative running beside (desktop, StoryStages.tsx) or
+ * below (mobile, MobilePhoneStory.tsx) the phone — each block paired with
+ * the matching stretch of the timeline above so the copy always matches
+ * what the phone is doing at that moment.
  */
 export const STORY_BLOCKS: readonly StoryBlock[] = [
   {
     key: 'customer',
     start: 0,
     end: 0.3,
-    kicker: 'דוחות מקצועיים',
+    kicker: 'דוחות מקצועיים תוך דקות',
     heading: 'כל פרטי הלקוח במקום אחד',
-    body: 'מלאו שם, טלפון וכתובת — Dohot מסדרת הכל בפורמט אחיד ומקצועי, מוכן לשליחה.',
+    kpi: 'פחות אדמיניסטרציה. יותר עבודה.',
+    body: 'מלאו שם, טלפון וכתובת ישירות מהטלפון — Dohot שומרת הכל בפורמט אחיד לפעם הבאה.',
   },
   {
     key: 'work',
@@ -100,7 +115,8 @@ export const STORY_BLOCKS: readonly StoryBlock[] = [
     end: 0.54,
     kicker: 'תיעוד עבודה',
     heading: 'פרטי העבודה בשפה ברורה',
-    body: 'בחרו סוג עבודה והוסיפו תיאור — הניסוח נשמר אחיד בכל דוח שאתם מוציאים.',
+    kpi: 'ניסוח אחיד. בכל דוח.',
+    body: 'בחרו סוג עבודה והוסיפו תיאור — הפורמט המקצועי נשמר קבוע בכל דוח שיוצא.',
   },
   {
     key: 'checklist',
@@ -108,6 +124,7 @@ export const STORY_BLOCKS: readonly StoryBlock[] = [
     end: 0.73,
     kicker: 'בקרת איכות',
     heading: 'רשימת בדיקה מובנית',
+    kpi: 'אפס דוחות חסרים.',
     body: 'תיוג, תמונות ואישורים — כל דוח יוצא באותה רמת מקצועיות, בכל פעם מחדש.',
   },
   {
@@ -116,7 +133,8 @@ export const STORY_BLOCKS: readonly StoryBlock[] = [
     end: 0.87,
     kicker: 'אישור לקוח',
     heading: 'חתימה דיגיטלית במקום',
-    body: 'הלקוח חותם ישירות על המסך — החתימה נשמרת בתוך הדוח כאישור רשמי.',
+    kpi: 'אישור מיידי, בלי נייר.',
+    body: 'הלקוח חותם ישירות על המסך — החתימה נשמרת בתוך הדוח כאישור רשמי לעבודה.',
   },
   {
     key: 'send',
@@ -124,6 +142,7 @@ export const STORY_BLOCKS: readonly StoryBlock[] = [
     end: 1,
     kicker: 'PDF מוכן אוטומטית',
     heading: 'שליחה מיידית ל-WhatsApp',
+    kpi: 'מדוח לשיחה עם הלקוח — תוך שניות.',
     body: 'ברגע שהדוח מוכן, שולחים אותו ללקוח תוך שניות — בלי הדפסה ובלי סריקה.',
   },
 ] as const

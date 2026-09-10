@@ -2,27 +2,42 @@
   position: relative;
   width: 100%;
   height: 100%;
-  perspective: 700px;
   pointer-events: none;
 }
 
 /*
  * The phone's actual screen: a fixed, clipped window. Its own transform is
- * the WhatsApp "detach and fly" effect for the whole visible report — see
- * .track below for the independent internal scroll.
+ * the WhatsApp "genie" effect for the whole visible report — see .track
+ * below for the independent internal scroll.
+ *
+ * `--fly-dx`/`--fly-dy` are the *real* measured pixel offset from this
+ * box's own center to the WhatsApp badge's center (useFlyGeometry, called
+ * from PhoneScreen.tsx) — not a guessed percentage — so `translate()`
+ * lands exactly on the badge regardless of phone size or breakpoint.
+ * `--ease` is a cubic ramp (x³) of `--p-fly`: barely moves for the first
+ * ~40%, accelerates through the middle, and snaps hard into the badge in
+ * the last ~20% — the "magnetic pull" feel. `--pinchL`/`--pinchR` narrow
+ * the bottom two corners of the clip-path unevenly (right pulls in more
+ * than left) so the shape visibly funnels toward the badge instead of
+ * just shrinking in place, and `--p-compress` finishes the collapse and
+ * fades it out right as it "enters" the badge.
  */
 .viewport {
-  --shrink: calc(1 - var(--p-fly, 0) * 0.6);
+  --ease: calc(var(--p-fly, 0) * var(--p-fly, 0) * var(--p-fly, 0));
   --collapse: calc(1 - var(--p-compress, 0));
+  --shrink: calc((1 - var(--ease) * 0.9) * var(--collapse));
+  --pinch: calc(min(1, var(--p-fly, 0) * 1.3) * 40%);
+  --pinch-r: calc(var(--pinch) * 1.3);
+  --pinch-l: calc(var(--pinch) * 0.5);
 
   position: absolute;
   inset: 0;
   overflow: hidden;
+  transform-origin: center;
   transform:
-    translate(calc(var(--p-fly, 0) * 34%), calc(var(--p-fly, 0) * 30%))
-    rotateY(calc(var(--p-fly, 0) * -14deg))
-    rotate(calc(var(--p-fly, 0) * 8deg))
-    scale(calc(var(--shrink) * var(--collapse)));
+    translate(calc(var(--ease) * var(--fly-dx, 0px)), calc(var(--ease) * var(--fly-dy, 0px)))
+    scale(var(--shrink));
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--pinch-r)) 100%, var(--pinch-l) 100%);
   opacity: var(--collapse);
 }
 
@@ -111,19 +126,20 @@
   height: 100%;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 28%;
   background: #25d366;
   box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
-  font-size: 0.9375rem;
+}
+
+.targetGlyph {
+  width: 60%;
+  height: 60%;
+  color: #fff;
 }
 
 @container (max-width: 200px) {
   .pdfBadge {
     font-size: 0.5625rem;
     padding: 0.05rem 0.3rem;
-  }
-
-  .targetIcon {
-    font-size: 0.75rem;
   }
 }

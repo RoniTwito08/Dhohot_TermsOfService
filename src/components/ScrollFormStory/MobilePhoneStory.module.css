@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  padding: 1.5rem var(--content-padding) 0.5rem;
+  padding: 1rem var(--content-padding) 0.25rem;
 }
 
 .captions {

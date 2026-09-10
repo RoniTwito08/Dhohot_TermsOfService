@@ -9,22 +9,22 @@
     1
   );
 
-  min-height: 44vh;
+  min-height: 34vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.5rem;
-  padding-block: 1rem;
+  padding-block: 0.65rem;
   opacity: calc(0.4 + var(--active, 1) * 0.6);
   transform: translateY(calc((1 - var(--active, 1)) * 8px));
 }
 
 .block:first-child {
-  min-height: 34vh;
+  min-height: 24vh;
 }
 
 .block:last-child {
-  min-height: 34vh;
+  min-height: 24vh;
 }
 
 .kicker {
@@ -58,4 +58,87 @@
   color: var(--color-text-secondary);
   line-height: 1.7;
   max-width: 34ch;
+}
+
+.kpi {
+  display: none;
+}
+
+/*
+ * Desktop sidebar variant: bigger, more editorial, with a KPI statement
+ * and a vertical rail + dot marker (lit up via the same --active this
+ * stage's copy already dims/brightens with) giving a sense of progression
+ * through the story as the phone beside it fills in.
+ */
+.roomy {
+  min-height: 54vh;
+  gap: 0.65rem;
+  padding-inline-start: 1.75rem;
+  border-inline-start: 2px solid var(--color-border);
+  position: relative;
+  max-width: 480px;
+}
+
+.roomy::before {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  inset-inline-start: -7px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  box-shadow: 0 0 0 4px var(--color-bg);
+  transition: border-color 250ms ease, background 250ms ease, box-shadow 250ms ease;
+}
+
+.roomy:first-child,
+.roomy:last-child {
+  min-height: 38vh;
+}
+
+.roomy .kicker {
+  font-size: var(--eyebrow-size);
+}
+
+.roomy .heading {
+  font-size: var(--headline-md);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.roomy .kpi {
+  display: block;
+  font-size: var(--kpi-size);
+  font-weight: 700;
+  color: var(--color-green);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.roomy .body {
+  font-size: 1.0625rem;
+  max-width: 38ch;
+}
+
+/* Active-dot glow: interpolated inline via style, see StoryCaption.tsx style prop */
+.roomy {
+  --dot-color: color-mix(in srgb, var(--color-green) calc(var(--active, 0) * 100%), var(--color-border));
+}
+
+.roomy::before {
+  border-color: var(--dot-color);
+  background: color-mix(in srgb, var(--color-green) calc(var(--active, 0) * 100%), var(--color-bg));
+}
+
+@media (max-width: 1100px) {
+  .roomy {
+    min-height: 46vh;
+  }
+
+  .roomy:first-child,
+  .roomy:last-child {
+    min-height: 34vh;
+  }
 }

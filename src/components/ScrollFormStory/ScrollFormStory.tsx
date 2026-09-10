@@ -12,6 +12,16 @@ interface ScrollFormStoryProps {
 const MOBILE_BREAKPOINT = 860
 
 /**
+ * The reading blocks (StoryStages.tsx) occupy roughly the first ~62% of
+ * this page's height — the rest is the dark/features/closing sections
+ * after them. Compressing the story into that same stretch (instead of
+ * spreading it across the whole page) means it finishes right as those
+ * sections begin, instead of still animating next to unrelated copy. See
+ * useScrollTimeline's `scale` option and timeline.ts for the full story.
+ */
+const STORY_SCALE = 1.6
+
+/**
  * Desktop shell for the scroll-driven product story: a phone mockup stays
  * pinned beside the page (from just under the header to just above the
  * footer, vertically centered in the space between) while `children` — the
@@ -34,7 +44,7 @@ const MOBILE_BREAKPOINT = 860
 export default function ScrollFormStory({ children }: ScrollFormStoryProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const isMobile = useIsMobile(MOBILE_BREAKPOINT)
-  useScrollTimeline(rootRef, { enabled: !isMobile })
+  useScrollTimeline(rootRef, { enabled: !isMobile, scale: STORY_SCALE })
 
   if (isMobile) {
     return <>{children}</>

@@ -1,39 +1,36 @@
 import { Link } from 'react-router-dom'
 import logoUrl from '../../assets/Logo/Dohot_logo.png'
+import Reveal from '../../components/Reveal/Reveal'
 import MobilePhoneStory from '../../components/ScrollFormStory/MobilePhoneStory'
 import ScrollFormStory from '../../components/ScrollFormStory/ScrollFormStory'
+import StoryStages from '../../components/ScrollFormStory/StoryStages'
+import WhatsAppIcon from '../../components/ScrollFormStory/WhatsAppIcon'
 import styles from './Home.module.css'
 
-const features = [
-  {
-    icon: '📋',
-    title: 'דוחות מקצועיים',
-    desc: 'צור דוחות מפורטים ומקצועיים בכמה שניות — ממולאים, מעוצבים ומוכנים לשליחה.',
-  },
+const professions = [
+  { icon: '🔧', label: 'אינסטלטורים' },
+  { icon: '🔌', label: 'חשמלאים' },
+  { icon: '❄️', label: 'מזגנאים' },
+  { icon: '🛠️', label: 'טכנאים' },
+  { icon: '🚪', label: 'מנעולנים' },
+  { icon: '🎨', label: 'שיפוצניקים' },
+]
+
+const supportingFeatures = [
   {
     icon: '💰',
     title: 'הצעות מחיר',
-    desc: 'שלח הצעות מחיר מעוצבות ומרשימות ללקוחות בקלות ובמהירות.',
+    desc: 'הצעות מחיר מעוצבות שנשלחות ללקוח תוך דקות.',
   },
   {
     icon: '🛡️',
     title: 'תעודות אחריות',
-    desc: 'הפק תעודות אחריות ללקוחות בלחיצת כפתור, עם פרטי העבודה והציוד.',
+    desc: 'הפקה בלחיצת כפתור, עם פרטי העבודה והציוד.',
   },
   {
     icon: '📸',
     title: 'תיעוד עבודה',
-    desc: 'צלם, תעד וסדר תמונות ישירות בתוך הדוח — הכל במקום אחד.',
-  },
-  {
-    icon: '📄',
-    title: 'ייצוא PDF',
-    desc: 'ייצא כל מסמך ל-PDF מוכן להדפסה ושיתוף, עם לוגו העסק שלך.',
-  },
-  {
-    icon: '💬',
-    title: 'שיתוף מהיר',
-    desc: 'שתף דוחות והצעות מחיר ישירות ל-WhatsApp או אימייל תוך שניות.',
+    desc: 'תמונות מסודרות בתוך הדוח, הכל במקום אחד.',
   },
 ]
 
@@ -43,7 +40,6 @@ export default function Home() {
       <ScrollFormStory>
         {/* =================== HERO =================== */}
         <section className={styles.hero}>
-          {/* Decorative background shapes echoing the logo */}
           <div className={styles.heroBg} aria-hidden="true">
             <div className={styles.bgShapeGreen} />
             <div className={styles.bgShapeOrange} />
@@ -56,16 +52,14 @@ export default function Home() {
             </div>
 
             <h1 className={styles.heroTitle}>
-              דוחות, הצעות מחיר
+              פחות ניירת.
               <br />
-              <span className={styles.heroAccent}>ותיעוד עבודה</span>
-              <br />
-              בכמה שניות
+              <span className={styles.heroAccent}>יותר עבודה.</span>
             </h1>
 
             <p className={styles.heroSub}>
-              אפליקציה לניהול דוחות והצעות מחיר לבעלי מקצוע — אינסטלטורים, חשמלאים,
-              מזגנאים, טכנאים ועוד. כל המסמכים שלך במקום אחד, מוכנים לשיתוף ב-WhatsApp.
+              דוחות, הצעות מחיר ותיעוד עבודה — ישירות מהטלפון, תוך דקות.
+              כל המסמכים שלך במקום אחד, מוכנים לשיתוף ב-WhatsApp.
             </p>
 
             <div className={styles.heroCta}>
@@ -76,104 +70,158 @@ export default function Home() {
                 צור קשר
               </Link>
             </div>
-          </div>
-        </section>
 
-        {/* =================== FEATURES =================== */}
-        <section id="features" className={styles.features}>
-          <div className="container">
-            <div className={styles.sectionHead}>
-              <h2 className={styles.sectionTitle}>הכל במקום אחד</h2>
-              <p className={styles.sectionSub}>
-                כל הכלים שבעל מקצוע צריך כדי לנהל את התיעוד שלו — פשוט, מהיר ומקצועי.
-              </p>
+            <div className={styles.heroProof}>
+              <span className={styles.heroProofItem}>
+                <span className={styles.heroProofIcon}>✓</span>
+                בלי כרטיס אשראי
+              </span>
+              <span className={styles.heroProofItem}>
+                <span className={styles.heroProofIcon}>✓</span>
+                מוכן לשימוש תוך דקות
+              </span>
+              <span className={styles.heroProofItem}>
+                <span className={styles.heroProofIcon}>✓</span>
+                בעברית, לעסק הישראלי
+              </span>
             </div>
-            <div className={styles.featureGrid}>
-              {features.map((f) => (
-                <article key={f.title} className={styles.featureCard}>
-                  <span className={styles.featureIcon} aria-hidden="true">{f.icon}</span>
-                  <h3 className={styles.featureTitle}>{f.title}</h3>
-                  <p className={styles.featureDesc}>{f.desc}</p>
-                </article>
+
+            <div className={styles.trustRow}>
+              <span className={styles.trustLabel}>בשימוש יומיומי אצל</span>
+              {professions.map((p) => (
+                <span key={p.label} className={styles.trustChip}>
+                  <span aria-hidden="true">{p.icon}</span>
+                  {p.label}
+                </span>
               ))}
             </div>
           </div>
         </section>
 
-        {/* =================== HOW IT WORKS =================== */}
-        <section className={styles.how}>
-          <div className="container">
-            <div className={styles.sectionHead}>
-              <h2 className={styles.sectionTitle}>איך זה עובד?</h2>
-              <p className={styles.sectionSub}>שלושה צעדים פשוטים מהמשימה ועד המסמך הסופי</p>
-            </div>
-            <ol className={styles.steps}>
-              <li className={styles.step}>
-                <div className={styles.stepNum}>1</div>
-                <div className={styles.stepContent}>
-                  <h3>מלא את פרטי העבודה</h3>
-                  <p>הוסף תיאור, פרטי לקוח, תמונות, חלקים שהוחלפו ועלויות — בצורה נוחה ומהירה.</p>
+        {/* =================== SCROLL STORY NARRATIVE (desktop) / COMPACT STORY (mobile) =================== */}
+        <div className="container">
+          <StoryStages />
+        </div>
+        <MobilePhoneStory />
+
+        {/* =================== DARK PREMIUM BAND =================== */}
+        <section className={styles.dark}>
+          <div className={styles.darkGlow} aria-hidden="true" />
+          <div className={`container ${styles.darkGrid}`}>
+            <Reveal className={styles.darkInner}>
+              <span className={styles.darkEyebrow}>הכל במקום אחד</span>
+              <h2 className={styles.darkTitle}>
+                מהעבודה בשטח לתיק הלקוח —
+                <br />
+                בלי לצאת מהאפליקציה.
+              </h2>
+
+              <div className={styles.darkCapabilities}>
+                <div className={styles.darkCapability}>
+                  <span className={styles.darkCapabilityIcon} aria-hidden="true">📁</span>
+                  <div>
+                    <strong>ניהול לקוחות</strong>
+                    <span>היסטוריית עבודות לפי לקוח</span>
+                  </div>
                 </div>
-              </li>
-              <li className={styles.step}>
-                <div className={styles.stepNum}>2</div>
-                <div className={styles.stepContent}>
-                  <h3>ערוך ושפר בעזרת AI</h3>
-                  <p>המערכת מציעה ניסוח מקצועי לתיאורים שלך — אתה תמיד בשליטה על התוכן הסופי.</p>
+                <div className={styles.darkCapability}>
+                  <span className={styles.darkCapabilityIcon} aria-hidden="true">📄</span>
+                  <div>
+                    <strong>ייצוא PDF</strong>
+                    <span>מסמך עם לוגו העסק שלך</span>
+                  </div>
                 </div>
-              </li>
-              <li className={styles.step}>
-                <div className={styles.stepNum}>3</div>
-                <div className={styles.stepContent}>
-                  <h3>שתף בלחיצת כפתור</h3>
-                  <p>ייצא ל-PDF ושתף ישירות ב-WhatsApp, אימייל, או כל דרך אחרת שנוחה לך.</p>
+                <div className={styles.darkCapability}>
+                  <span className={`${styles.darkCapabilityIcon} ${styles.darkCapabilityWhatsapp}`} aria-hidden="true">
+                    <WhatsAppIcon className={styles.darkWhatsappGlyph} />
+                  </span>
+                  <div>
+                    <strong>שיתוף ב-WhatsApp</strong>
+                    <span>מהדוח ישר לשיחה עם הלקוח</span>
+                  </div>
                 </div>
-              </li>
-            </ol>
+              </div>
+            </Reveal>
+
+            <Reveal delay={100} className={styles.darkVisual}>
+              <div className={styles.darkVisualCardBack} aria-hidden="true">
+                <span className={styles.darkVisualTag}>PDF</span>
+                <span className={styles.darkVisualLine} />
+                <span className={styles.darkVisualLine} />
+                <span className={styles.darkVisualLineShort} />
+              </div>
+              <div className={styles.darkVisualChat} aria-hidden="true">
+                <span className={styles.darkVisualChatIcon}>
+                  <WhatsAppIcon className={styles.darkVisualChatGlyph} />
+                </span>
+                <span className={styles.darkVisualChatText}>הדו״ח נשלח ✓</span>
+              </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* Compact phone story — mobile only; desktop already gets the sidebar phone above */}
-        <MobilePhoneStory />
-
-        {/* =================== LEGAL LINKS =================== */}
-        <section className={styles.legal}>
+        {/* =================== SUPPORTING FEATURES =================== */}
+        <section id="features" className={styles.features}>
           <div className="container">
-            <div className={styles.legalCard}>
-              <div className={styles.legalBrand}>
-                <img src={logoUrl} alt="" aria-hidden="true" className={styles.legalLogo} />
-                <div className={styles.legalText}>
-                  <h2>מידע משפטי ופרטיות</h2>
-                  <p>
-                    אנו מחויבים לשקיפות ולהגנה על פרטיות המשתמשים שלנו.
-                    קרא את המסמכים המשפטיים שלנו לפני השימוש באפליקציה.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.legalLinks}>
-                <Link to="/privacy" className={styles.legalLink}>
-                  <span className={styles.legalLinkIcon}>🔒</span>
-                  <div>
-                    <strong>מדיניות פרטיות</strong>
-                    <span>כיצד אנו מטפלים במידע שלך</span>
-                  </div>
-                </Link>
-                <Link to="/terms" className={styles.legalLink}>
-                  <span className={styles.legalLinkIcon}>📜</span>
-                  <div>
-                    <strong>תנאי שימוש</strong>
-                    <span>כללים ואחריות השימוש באפליקציה</span>
-                  </div>
-                </Link>
-                <Link to="/contact" className={styles.legalLink}>
-                  <span className={styles.legalLinkIcon}>✉️</span>
-                  <div>
-                    <strong>צור קשר</strong>
-                    <span>שאלות? אנחנו כאן לעזור</span>
-                  </div>
-                </Link>
+            <div className={styles.featureLayout}>
+              <Reveal className={styles.featureLead}>
+                <span className={styles.featureLeadEyebrow}>וזה רק ההתחלה</span>
+                <span className={styles.featureLeadIcon} aria-hidden="true">📋</span>
+                <h3 className={styles.featureLeadTitle}>דוחות מקצועיים</h3>
+                <p className={styles.featureLeadDesc}>
+                  צרו דוח מפורט ומקצועי בכמה שניות — ממולא, מעוצב ומוכן לשליחה,
+                  ישירות מהטלפון בשטח.
+                </p>
+                <span className={styles.featureLeadKpi}>מהמשימה למסמך, תוך דקות.</span>
+              </Reveal>
+
+              <div className={styles.featureMiniGrid}>
+                {supportingFeatures.map((f, i) => (
+                  <Reveal key={f.title} delay={80 + i * 70}>
+                    <article className={styles.featureMiniCard}>
+                      <span className={styles.featureMiniIcon} aria-hidden="true">{f.icon}</span>
+                      <h4 className={styles.featureMiniTitle}>{f.title}</h4>
+                      <p className={styles.featureMiniDesc}>{f.desc}</p>
+                    </article>
+                  </Reveal>
+                ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* =================== CLOSING CTA + LEGAL =================== */}
+        <section className={styles.closing}>
+          <div className="container">
+            <Reveal>
+              <div className={styles.closingCard}>
+                <div className={styles.closingMain}>
+                  <h2 className={styles.closingTitle}>
+                    העסק שלך יכול לעבוד
+                    <br />
+                    הרבה יותר פשוט.
+                  </h2>
+                  <p className={styles.closingSub}>
+                    פחות ניירת. פחות התעסקות. יותר זמן לעבודה עצמה.
+                  </p>
+                  <div className={styles.closingCta}>
+                    <Link to="/contact" className={styles.closingPrimary}>
+                      התחל עכשיו
+                    </Link>
+                    <a href="#features" className={styles.closingSecondary}>
+                      ראה איך זה עובד
+                    </a>
+                  </div>
+                </div>
+
+                <div className={styles.closingLinks}>
+                  <img src={logoUrl} alt="" aria-hidden="true" className={styles.closingLogo} />
+                  <Link to="/privacy" className={styles.closingLink}>מדיניות פרטיות</Link>
+                  <Link to="/terms" className={styles.closingLink}>תנאי שימוש</Link>
+                  <Link to="/contact" className={styles.closingLink}>צור קשר</Link>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
       </ScrollFormStory>

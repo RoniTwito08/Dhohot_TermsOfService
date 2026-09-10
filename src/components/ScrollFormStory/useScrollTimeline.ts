@@ -17,11 +17,20 @@ const clamp = (value: number, min: number, max: number) =>
 interface UseScrollTimelineOptions {
   /** Set false when this instance's root isn't rendered/relevant right now (e.g. the desktop story on a mobile viewport) — skips attaching listeners. */
   enabled?: boolean
+  /**
+   * Compresses the canonical 0 → 1 story timeline into the first
+   * `1 / scale` of this root's raw scroll progress — e.g. 1.6 finishes the
+   * whole story by 62% of the way through. Use this when the root spans
+   * more than just the story itself (the desktop sidebar's root is the
+   * whole page — see ScrollFormStory.tsx); leave at 1 when the root *is*
+   * the story's own bounded height (MobilePhoneStory.tsx).
+   */
+  scale?: number
 }
 
 export function useScrollTimeline(
   sectionRef: RefObject<HTMLElement>,
-  { enabled = true }: UseScrollTimelineOptions = {}
+  { enabled = true, scale = 1 }: UseScrollTimelineOptions = {}
 ) {
   const reducedMotion = useReducedMotion()
 
@@ -41,8 +50,9 @@ export function useScrollTimeline(
       ticking = false
       const rect = el.getBoundingClientRect()
       const scrollableDistance = el.offsetHeight - window.innerHeight
-      const progress =
+      const rawProgress =
         scrollableDistance > 0 ? clamp(-rect.top / scrollableDistance, 0, 1) : 0
+      const progress = clamp(rawProgress * scale, 0, 1)
 
       el.style.setProperty('--progress', progress.toFixed(4))
       for (const { key, start, end } of TIMELINE) {
@@ -64,7 +74,7 @@ export function useScrollTimeline(
       window.removeEventListener('scroll', onScrollOrResize)
       window.removeEventListener('resize', onScrollOrResize)
     }
-  }, [reducedMotion, sectionRef, enabled])
+  }, [reducedMotion, sectionRef, enabled, scale])
 
   return { reducedMotion }
 }
