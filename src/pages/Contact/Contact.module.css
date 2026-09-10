@@ -246,6 +246,14 @@ a.contactValue:hover {
     grid-template-columns: 1fr;
   }
 
+  .info {
+    order: 2;
+  }
+
+  .whatsappSection {
+    order: 1;
+  }
+
   .infoCard {
     position: static;
   }
